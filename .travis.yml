@@ -5,6 +5,7 @@ go:
 
 install:
   - go generate
+  - go get github.com/mholt/caddy/caddy
   - go get .
 
 script:
