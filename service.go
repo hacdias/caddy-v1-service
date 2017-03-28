@@ -17,9 +17,7 @@ func init() {
 	flag.StringVar(&name, "name", "Caddy", "Caddy's service name")
 	flag.StringVar(&action, "service", "", "install, uninstall, start, stop, restart")
 
-	caddy.RegisterPlugin("service", caddy.Plugin{
-		StartupHook: hook,
-	})
+	caddy.RegisterEventHook("service", hook)
 }
 
 type program struct{}
@@ -44,7 +42,11 @@ func (p *program) Stop(s service.Service) error {
 	return caddy.Stop()
 }
 
-func hook() error {
+func hook(event caddy.EventName) error {
+	if event != caddy.StartupEvent {
+		return nil
+	}
+
 	flags := []string{
 		"conf",
 		"type",
