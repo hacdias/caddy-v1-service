@@ -10,6 +10,8 @@ This plugin uses [github.com/kardianos/service](https://github.com/kardianos/ser
 
 Right now, this plugin seems to work well on most systems that kardianos/service supports, which are Windows XP+, Linux/(systemd | Upstart | SysV), and OSX/Launchd.
 
+**This plugin wasn't widely tested. We count on the community to let us know if you find any eventual bugs and tell us what we can do to improve its functionality.**
+
 ### Install a Caddy service:
 
 ```
