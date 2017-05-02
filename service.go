@@ -47,16 +47,6 @@ func hook(event caddy.EventName) error {
 		return nil
 	}
 
-	flags := []string{
-		"conf",
-		"type",
-		"log",
-		"http2",
-		"email",
-		"grace",
-		"cpu",
-	}
-
 	config := &service.Config{
 		Name:        name,
 		DisplayName: name,
@@ -64,12 +54,19 @@ func hook(event caddy.EventName) error {
 		Arguments:   []string{},
 	}
 
-	for k := range flags {
-		f := flag.Lookup(flags[k])
-		if f.Value.String() != f.DefValue {
-			config.Arguments = append(config.Arguments, "-"+flags[k], f.Value.String())
+	flag.VisitAll(func(f *flag.Flag) {
+		// ignore our own flags
+		if f.Name == "service" || f.Name == "name" {
+			return
 		}
-	}
+
+		// ignore flags with default value
+		if f.Value.String() == f.DefValue {
+			return
+		}
+
+		config.Arguments = append(config.Arguments, "-"+f.Name, f.Value.String())
+	})
 
 	s, err := service.New(&program{}, config)
 	if err != nil {
