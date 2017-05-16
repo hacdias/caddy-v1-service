@@ -2,6 +2,7 @@ package service
 
 import (
 	"flag"
+	"fmt"
 	"os"
 
 	"github.com/kardianos/service"
@@ -76,7 +77,8 @@ func hook(event caddy.EventName) error {
 	if action != "" {
 		err = service.Control(s, action)
 		if err != nil {
-			return err
+			fmt.Println(err)
+			os.Exit(1)
 		}
 		os.Exit(0)
 	}
