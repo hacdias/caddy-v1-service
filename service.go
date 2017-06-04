@@ -43,7 +43,7 @@ func (p *program) Stop(s service.Service) error {
 	return caddy.Stop()
 }
 
-func hook(event caddy.EventName) error {
+func hook(event caddy.EventName, info interface{}) error {
 	if event != caddy.StartupEvent {
 		return nil
 	}
