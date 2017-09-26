@@ -15,10 +15,14 @@ Right now, this plugin seems to work well on most systems that kardianos/service
 ### Install a Caddy service:
 
 ```
-caddy -service install [-name optionalName]
+caddy -service install [-name optionalServiceName] [-option optionValue]
 ```
 
-Notice that if you install the service with a name that is not the default's, you will need to specify it everytime you use one of the other commands using the flag `-name`.
+Notes:
+1. Notice that if you install the service with a name that is not the default's, you will need to specify it everytime you use one of the other commands using the flag `-name`.
+2. You can install the service with default Caddy flag values (e.g. -conf MyCaddyfile)
+
+
 
 ### Uninstall a Caddy service:
 
