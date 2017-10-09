@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/kardianos/service"
+	"github.com/NetWatcher/service"
 	"github.com/mholt/caddy"
 )
 
@@ -77,8 +77,25 @@ func hook(event caddy.EventName, info interface{}) error {
 	if action != "" {
 		err = service.Control(s, action)
 		if err != nil {
-			fmt.Println(err)
-			os.Exit(1)
+			if action != "status" {
+				fmt.Println(err)
+				os.Exit(1)
+			} else {
+				code, _ := s.Status()
+
+				switch code {
+				case 0:
+					fmt.Println("Caddy service is not installed.")
+				case 1:
+					fmt.Println("Caddy service is not running.")
+					break
+				case 4:
+					fmt.Println("Caddy service is running.")
+					break
+				default:
+					fmt.Println("Error: ", code)
+				}
+			}
 		}
 		os.Exit(0)
 	}
