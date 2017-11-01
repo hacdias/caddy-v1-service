@@ -16,7 +16,7 @@ var (
 
 func init() {
 	flag.StringVar(&name, "name", "Caddy", "Caddy's service name")
-	flag.StringVar(&action, "service", "", "install, uninstall, start, stop, restart")
+	flag.StringVar(&action, "service", "", "Install, uninstall, start, stop, restart")
 
 	caddy.RegisterEventHook("service", hook)
 }
@@ -71,40 +71,43 @@ func hook(event caddy.EventName, info interface{}) error {
 
 	s, err := service.New(&program{}, config)
 	if err != nil {
-		return err
+		exit(err)
 	}
 
 	if action != "" {
-		err = service.Control(s, action)
-		if err != nil {
-			if action != "status" {
-				fmt.Println(err)
-				os.Exit(1)
-			} else {
-				code, _ := s.Status()
-
-				switch code {
-				case 0:
-					fmt.Println("Caddy service is not installed.")
-				case 1:
-					fmt.Println("Caddy service is not running.")
-					break
-				case 4:
-					fmt.Println("Caddy service is running.")
-					break
-				default:
-					fmt.Println("Error: ", code)
-				}
-			}
-		}
-		os.Exit(0)
+		exit(actionHandler(action, s))
 	}
 
-	err = s.Run()
+	exit(s.Run())
+	return nil
+}
+
+func exit(err error) {
 	if err != nil {
-		return err
+		fmt.Println(err)
+		os.Exit(1)
 	}
 
 	os.Exit(0)
+}
+
+func actionHandler(action string, s service.Service) error {
+	if action != "status" {
+		return service.Control(s, action)
+	}
+
+	code, _ := s.Status()
+
+	switch code {
+	case 0:
+		fmt.Println("Caddy service is not installed.")
+	case 1:
+		fmt.Println("Caddy service is not running.")
+	case 4:
+		fmt.Println("Caddy service is running.")
+	default:
+		fmt.Println("Error: ", code)
+	}
+
 	return nil
 }
