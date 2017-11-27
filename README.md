@@ -19,8 +19,9 @@ caddy -service install [-name optionalServiceName] [-option optionValue]
 ```
 
 Notes:
-1. Notice that if you install the service with a name that is not the default's, you will need to specify it everytime you use one of the other commands using the flag `-name`.
-2. You can install the service with default Caddy flag values (e.g. -conf MyCaddyfile)
+1. You **must** set the `-conf` flag to your Caddyfile.
+2. Notice that if you install the service with a name that is not the default's, you will need to specify it everytime you use one of the other commands using the flag `-name`.
+3. You can install the service with default Caddy flag values (e.g. -conf MyCaddyfile)
 
 
 
