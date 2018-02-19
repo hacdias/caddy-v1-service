@@ -12,6 +12,7 @@ import (
 var (
 	logger       service.Logger
 	name, action string
+	instance     *caddy.Instance
 )
 
 func init() {
@@ -31,7 +32,7 @@ func (p *program) Start(s service.Service) error {
 	}
 
 	// Start your engines
-	_, err = caddy.Start(caddyfile)
+	instance, err = caddy.Start(caddyfile)
 	if err != nil {
 		return err
 	}
@@ -40,7 +41,10 @@ func (p *program) Start(s service.Service) error {
 }
 
 func (p *program) Stop(s service.Service) error {
-	return caddy.Stop()
+	instance.ShutdownCallbacks()
+	err := instance.Stop()
+	instance = nil
+	return err
 }
 
 func hook(event caddy.EventName, info interface{}) error {
