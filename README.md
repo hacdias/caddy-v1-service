@@ -19,7 +19,7 @@ caddy -service install [-name optionalServiceName] [-option optionValue]
 ```
 
 Notes:
-1. You **must** set the `-conf` flag to your Caddyfile.
+1. You **must** set the `-conf` flag to your Caddyfile. Though, usually Caddy works by using the caddyfile in the directory which the caddy executable resides in, which is not necessarily the working directory. However, the service does not load the Caddyfile from the executable directory, and so must be specified using the `-conf` flag.
 2. Notice that if you install the service with a name that is not the default's, you will need to specify it everytime you use one of the other commands using the flag `-name`.
 3. You can install the service with default Caddy flag values (e.g. -conf MyCaddyfile)
 
