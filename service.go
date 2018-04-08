@@ -70,7 +70,7 @@ func hook(event caddy.EventName, info interface{}) error {
 			return
 		}
 
-		config.Arguments = append(config.Arguments, "-"+f.Name, f.Value.String())
+		config.Arguments = append(config.Arguments, "-"+f.Name+"="+f.Value.String())
 	})
 
 	s, err := service.New(&program{}, config)
