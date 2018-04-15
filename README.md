@@ -15,7 +15,7 @@ Right now, this plugin seems to work well on most systems that kardianos/service
 ### Install a Caddy service:
 
 ```
-caddy -service install [-name optionalServiceName] [-option optionValue]
+caddy -service install -conf /path/to/Caddyfile [-name optionalServiceName] [-option optionValue]
 ```
 
 Notes:
