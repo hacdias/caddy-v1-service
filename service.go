@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/NetWatcher/service"
 	"github.com/mholt/caddy"
@@ -16,7 +17,7 @@ var (
 )
 
 func init() {
-	flag.StringVar(&name, "name", "Caddy", "Caddy's service name")
+	flag.StringVar(&name, "name", "caddy", "Caddy's service name")
 	flag.StringVar(&action, "service", "", "Install, uninstall, start, stop, restart")
 
 	caddy.RegisterEventHook("service", hook)
@@ -53,7 +54,7 @@ func hook(event caddy.EventName, info interface{}) error {
 	}
 
 	config := &service.Config{
-		Name:        name,
+		Name:        strings.ToLower(name),
 		DisplayName: name,
 		Description: "Caddy's service",
 		Arguments:   []string{},
