@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/NetWatcher/service"
+	"github.com/kardianos/service"
 	"github.com/mholt/caddy"
 )
 
