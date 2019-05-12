@@ -103,11 +103,11 @@ func actionHandler(action string, s service.Service) error {
 	code, _ := s.Status()
 
 	switch code {
-	case 0:
+	case service.StatusUnknown:
 		fmt.Println("Caddy service is not installed.")
-	case 1:
+	case service.StatusStopped:
 		fmt.Println("Caddy service is not running.")
-	case 4:
+	case service.StatusRunning:
 		fmt.Println("Caddy service is running.")
 	default:
 		fmt.Println("Error: ", code)
