@@ -11,7 +11,6 @@ import (
 )
 
 var (
-	logger       service.Logger
 	name, action string
 	instance     *caddy.Instance
 )
