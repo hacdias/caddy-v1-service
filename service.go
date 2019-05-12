@@ -6,12 +6,11 @@ import (
 	"os"
 	"strings"
 
-	"github.com/NetWatcher/service"
+	"github.com/kardianos/service"
 	"github.com/mholt/caddy"
 )
 
 var (
-	logger       service.Logger
 	name, action string
 	instance     *caddy.Instance
 )
@@ -104,11 +103,11 @@ func actionHandler(action string, s service.Service) error {
 	code, _ := s.Status()
 
 	switch code {
-	case 0:
+	case service.StatusUnknown:
 		fmt.Println("Caddy service is not installed.")
-	case 1:
+	case service.StatusStopped:
 		fmt.Println("Caddy service is not running.")
-	case 4:
+	case service.StatusRunning:
 		fmt.Println("Caddy service is running.")
 	default:
 		fmt.Println("Error: ", code)
