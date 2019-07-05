@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/kardianos/service"
-	"github.com/mholt/caddy"
+	"github.com/caddyserver/caddy"
 )
 
 var (
