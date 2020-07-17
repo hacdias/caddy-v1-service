@@ -1,5 +1,7 @@
 # service - a caddy plugin
 
+> ⚠️ This plugin is no longer maintained, nor is it compatible with Caddy 2+.
+
 [![CircleCI branch](https://img.shields.io/circleci/project/github/hacdias/caddy-service/master.svg?style=flat-square)](https://circleci.com/gh/hacdias/caddy-service)
 [![community](https://img.shields.io/badge/community-forum-ff69b4.svg?style=flat-square)](https://forum.caddyserver.com)
 
